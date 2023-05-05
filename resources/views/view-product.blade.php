@@ -70,19 +70,8 @@
                                             </form>
                                         </div>
                                     </div>
-                                        <script>
-                                            document.getElementById("editButton-{{ $comment->id }}").addEventListener("click", function() {
-                                                var commentContent = document.querySelector(".comment-content");
-                                                var updateForm = document.querySelector(".update-form-{{ $comment->id }}");
 
 
-
-                                                commentContent.style.display = "none";
-                                                updateForm.style.display = "block";
-                                                document.getElementById("editButton-{{ $comment->id }}").style.display = "none";
-                                            });
-
-                                        </script>
                                 @endif
                         </div>
                     </div>
@@ -138,10 +127,12 @@
                 </div>
             </div>
         </div>
+
+
 @endsection
-
-
 @section('scripts')
-    <script src="{{ asset('js/script.js') }}"></script>
+        <script src="{{ asset('./js/script.js') }}"></script>
 
+        {{-- <script src="./js/script.js"></script> --}}
 @endsection
+
