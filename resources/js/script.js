@@ -8,3 +8,4 @@ document.getElementById("editButton-{{ $comment->id }}").addEventListener("click
     updateForm.style.display = "block";
     document.getElementById("editButton-{{ $comment->id }}").style.display = "none";
 });
+console.log('Hello')

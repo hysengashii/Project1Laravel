@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone');
             $table->float('total',10,2);
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('approval_status', 20)->default('pending');
             $table->timestamps();
         });
     }

@@ -36,6 +36,11 @@
     //     });
     // });
 
+    // public/js/script.js
+
+console.log('Hello, world!');
+
+
     document.getElementById("editButton-{{ $comment->id }}").addEventListener("click", function() {
         var commentContent = document.querySelector(".comment-content");
         var updateForm = document.querySelector(".update-form-{{ $comment->id }}");

@@ -97,17 +97,15 @@
           </footer>
 
 
-          <script src="{{ asset('js/script.js') }}"></script>
-
-          <script src="js/script.js"></script>
 
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
+{{--
           <script src="{{ asset('public/js/bootstrap5.bundle.js') }}"></script>
-          <script src="{{ asset('public/js/jquery-3.6.4.min.js') }}"></script>
+          <script src="{{ asset('public/js/jquery-3.6.4.min.js') }}"></script> --}}
+          <script src="{{ asset('js/script.js') }}"></script>
 
 
-@yield('scripts')
+        @yield('scripts')
 
 
 

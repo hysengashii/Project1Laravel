@@ -76,10 +76,7 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -89,13 +86,30 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
-        if (!Auth::user()->hasRole('admin')) {   //e kemi bo nese nuk osht admin mos me mujt mi fshi orderat
-            # code...
-            return redirect()->route('orders.index')->with('status','You are not allowed to delete orders!');
-        }
+        
         $order = Order::findOrFail($id);
         $order->delete();
 
         return redirect()->back()->with('success', 'Order deleted successfully.');
     }
+
+    public function update(Request $request, Order $order)
+{
+    $status = $request->input('status');
+
+    // Check if the authenticated user has the "admin" role
+    if (auth()->user()->hasRole('admin')) {
+        if ($status === 'approved' || $status === 'pending' || $status === 'refused') {
+            $order->approval_status = $status;
+            $order->save();
+        }
+    } else {
+        // If the user is not an admin, return an error message
+        return redirect()->back()->with('error', 'You do not have permission to approve orders.');
+    }
+
+    return redirect()->back();
+}
+
+
 }

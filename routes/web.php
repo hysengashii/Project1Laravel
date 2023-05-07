@@ -94,3 +94,5 @@ Route::middleware([
          compact('products','slides','orders'));
     })->name('dashboard');
 });
+
+Route::put('/orders/{order}', [OrdersController::class, 'update'])->name('orders.update');
