@@ -27,11 +27,13 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function order(){
-       return $this->belongsToMany(Order::class);
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withPivot('quantity');
     }
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+
 }

@@ -98,20 +98,20 @@ class CartController extends Controller
    $order->save();
 
    foreach($cartItems as $item) {
-       $product = Product::findOrFail($item->id);
+    $product = Product::findOrFail($item->id);
 
-       // Check if the quantity in the cart is greater than the quantity in the database
-       if($item->quantity > $product->qty) {
-           return redirect()->route('cart.index')->with('status', "We're sorry, we don't have enough {$product->name} in stock,  we have just {$product->qty} QTY, not {$item->quantity}");
-       }
+    // Check if the quantity in the cart is greater than the quantity in the database
+    if($item->quantity > $product->qty) {
+        return redirect()->route('cart.index')->with('status', "We're sorry, we don't have enough {$product->name} in stock,  we have just {$product->qty} QTY, not {$item->quantity}");
+    }
 
-       // Update the stock
-       $product->qty -= $item->quantity;
-       $product->save();
+    // Update the stock
+    $product->qty -= $item->quantity;
+    $product->save();
 
-       // Attach the product to the order
-       $order->products()->attach($product->id);
-   }
+    // Attach the product to the order
+    $order->products()->attach($product->id, ['quantity' => $item->quantity]);
+}
 
    // Clear the cart
    \Cart::clear();

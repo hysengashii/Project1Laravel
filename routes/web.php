@@ -25,6 +25,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
@@ -35,7 +36,7 @@ Route::get('/', function () {
     // $products = Product::take(6)->get();
     $products = Product::paginate(6);
     return view('home', compact('slides','products'));
-})->name('home');
+})->name('home')->middleware('pagespeed');
 
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
@@ -96,3 +97,9 @@ Route::middleware([
 });
 
 Route::put('/orders/{order}', [OrdersController::class, 'update'])->name('orders.update');
+
+
+// Route::get('/user/orders', [OrdersController::class, 'userOrders'])->name('user.orders');
+
+
+Route::get('orders/{id}', [OrdersController::class, 'show'])->name('orders.show');
