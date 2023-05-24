@@ -56,17 +56,18 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        $orders = Order::with('products')->where('user_id', $id)->get();
-        return view('dashboard.orders.show', compact('orders'));
+        if (!Auth::user()->hasRole('admin')) {
+            $order = Order::with('products')
+                ->where('user_id', Auth::id())
+                ->find($id);  // Retrieve the latest order
+        } else {
+            $order = Order::with('products')
+            ->find($id); // Retrieve the latest order
+        }
 
-//Ky kod merr të gjitha porositë bashkë me produktet e tyre të lidhura për një identifikues të përdoruesit $id. Këtu është një shpjegim i hollësishëm se çfarë ndodh:
-
-//Order::with('products'): Ky kod merr të gjitha porositë bashkë me produktet e tyre të lidhura. Metoda with përdoret për të ngarkuar paraprakisht lidhjen products për të shmangur problemet e pyetjeve N+1.
-
-//where('user_id', $id): Kjo shton një kusht në kërkesë për të marrë vetëm porositë ku kolona user_id përputhet me $id.
-
-//get(): Ky kod ekzekuton kërkesën dhe merr rezultatet si një koleksion.
+        return view('dashboard.orders.show', compact('order'));
     }
+
 
 
     /**
